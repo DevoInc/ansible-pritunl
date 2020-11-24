@@ -1,0 +1,32 @@
+---
+- become: true
+  block:
+  - name: Main | Added pritunl repos
+    lineinfile:
+      path: /etc/apt/sources.list.d/pritunl.list
+      line: 'deb http://repo.pritunl.com/stable/apt bionic main'
+      insertbefore: BOF
+      create: True
+
+  - name: "Main | Configure keys"
+    apt_key:
+      keyserver: "{{ item.server }}"
+      id: "{{ item.key }}"
+    with_items:
+      - "{{ pritunl_keys }}"
+
+  - name: "Main | reload_apt_cache"
+    shell: apt-get update
+
+  - name: "Main | Install required"
+    apt:
+      pkg:
+        - gnupg
+
+
+  - include_tasks: 01_pritunl_core_server.yml
+    when: groups['pritunl_core'] is defined and inventory_hostname in groups['pritunl_core']
+
+  - include_tasks: 02_pritunl_relay_server.yml
+    when: groups['pritunl_relay'] is defined and inventory_hostname in groups['pritunl_relay']
+    #when: install_core == True

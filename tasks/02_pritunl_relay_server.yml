@@ -1,0 +1,8 @@
+---
+- name: "Relay_Server | Install pritunl"
+  apt:
+    name: pritunl-link
+    state: present
+
+- name: "Relay_Server | Enable cloud provider"
+  shell: pritunl-link provider {{ cloud_provider | default('aws') }}

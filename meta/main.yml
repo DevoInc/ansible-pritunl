@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Nicolas Tobias
+  description: Deploy Pritunl Core / Relay server
+  company: Devo
+  license: license GPL-2.0-or-later
+
+  min_ansible_version: 2.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - 18.04
+
+  galaxy_tags: []
+
+dependencies: []

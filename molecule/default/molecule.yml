@@ -1,0 +1,38 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: ec2
+lint:
+  name: yamllint
+platforms:
+  - name: core-1
+    image_owner: 099720109477
+    image_name: ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*  # Default Ubuntu bionic image
+    instance_type: t3a.medium                                             # Default AWS Devo Instance
+    vpc_subnet_id: subnet-434b7009                                        # Default AWS Devo Frankfurt Subnet
+    connection_options:
+              sudo: True
+              ansible_user: ubuntu
+    groups:
+      - vpn-core
+  - name: relay-1
+    image_owner: 099720109477
+    image_name: ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*  # Default Ubuntu bionic image
+    instance_type: t3a.medium                                             # Default AWS Devo Instance
+    vpc_subnet_id: subnet-434b7009                                        # Default AWS Devo Frankfurt Subnet
+    connection_options:
+              sudo: True
+              ansible_user: ubuntu
+    groups:
+      - vpn-relay
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  options:
+    v: True                                                               # Add or remove v to increase/decrease debugging
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

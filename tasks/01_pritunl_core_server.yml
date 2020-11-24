@@ -1,0 +1,12 @@
+---
+- name: "Core_Server | Install pritunl"
+  apt:
+    name: pritunl
+    state: present
+
+- name: "Main | Enable Services"
+  systemd:
+      name: pritunl
+      enabled: true
+      daemon_reload: yes
+      state: started

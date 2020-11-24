@@ -1,0 +1,9 @@
+---
+pritunl_repos:
+  - "deb http://repo.pritunl.com/stable/apt bionic main"
+
+pritunl_keys:
+  - server: "hkp://keyserver.ubuntu.com"
+    key: "E162F504A20CDF15827F718D4B7C549A058F8B6B"
+  - server: "hkp://keyserver.ubuntu.com"
+    key: "7568D9BB55FF9E5287D586017AE645C0CF8E292A"
